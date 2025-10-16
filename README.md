@@ -9,12 +9,12 @@
 ![GithubBanner](assets/demo.png)
 
 <p align="center">
-Break the 280 character limit & make tweet cards at <strong>[your-live-link-here]</strong>.
+Break the 280 character limit & make tweet cards at <strong>[https://pikaa.vercel.app]</strong>.
 </p>
 
 ## Why Pikaa?
 
-Tired of cropping screenshots and making crusty text images just to share long tweets? pikaa lets anyone instantly create real-looking tweet cards with no paywalls, no templates, no editing pain. Just type, customize and share.
+Tired of cropping screenshots and making crusty text images just to share long tweets? pikaa lets anyone instantly create real-looking tweet cards with no paywalls, no templates, no editing pain.
 
 ## Features
 
