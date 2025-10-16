@@ -1,4 +1,4 @@
-<h1 align="center">Cardmaxxing</h1>
+<h1 align="center">Pikaa</h1>
 
 <p align="center">
 <img src="https://img.shields.io/badge/HTML-000000.svg?style=for-the-badge&logo=html5&logoColor=white">
@@ -12,9 +12,9 @@
 Break the 280 character limit & make tweet cards at <strong>[your-live-link-here]</strong>.
 </p>
 
-## Why Cardmaxxing?
+## Why Pikaa?
 
-Tired of cropping screenshots and making crusty text images just to share long tweets? cardmaxxing lets anyone instantly create real-looking tweet cards—no paywalls, no templates, no editing pain. Just type, customize, and share.
+Tired of cropping screenshots and making crusty text images just to share long tweets? pikaa lets anyone instantly create real-looking tweet cards—no paywalls, no templates, no editing pain. Just type, customize, and share.
 
 ## Features
 
@@ -28,8 +28,8 @@ Tired of cropping screenshots and making crusty text images just to share long t
 ## Quick Start
 
 ```bash
-git clone https://github.com/x0shreyash/cardmaxxing.git
-cd cardmaxxing
+git clone https://github.com/x0shreyash/pikaa.git
+cd pikaa
 ```
 Open `index.html` in your browser & no builds, no dependencies.
 
