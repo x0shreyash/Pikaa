@@ -18,7 +18,7 @@ Tired of cropping screenshots and making crusty text images just to share long t
 
 ## Features
 
-- Write up to 1000 characters
+- Limitless shitposting
 - Upload your own profile picture
 - Customize card background and color
 - Real-time preview as you type
