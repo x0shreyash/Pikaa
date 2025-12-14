@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <!-- Vercel Web Analytics (no npm needed) -->
 <script defer src="/_vercel/insights/script.js"></script>
 
@@ -29,17 +30,25 @@
   <meta name="twitter:creator" content="@x0shreyash">
   
   <!-- Favicons -->
-  <link rel="icon" type="image/png" href="assets/favicon/favicon.png" sizes="any">
-  <meta name="theme-color" content="#0B0F14">
-  
+   <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64x64.png">
+   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+   <meta name="theme-color" content="#0B0F14">
+   <!-- PWA / Android (manifest includes 192 & 512 + maskable) -->
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+
   <!-- Preload & Styles -->
-    <link rel="preload" href="script.js" as="script">
     <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,600,700&display=swap" rel="stylesheet">
-</head>
-  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.dicebear.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
+  </head>
+
 <body>
-  <div class='light x1'></div>
+  <!--<div class='light x1'></div>
   <div class='light x2'></div>
   <div class='light x3'></div>
   <div class='light x4'></div>
@@ -47,16 +56,43 @@
   <div class='light x6'></div>
   <div class='light x7'></div>
   <div class='light x8'></div>
-  <div class='light x9'></div>
+  <div class='light x9'></div>-->
+  
+  <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html" class="logo">
+                            <img src="assets/favicon.png" alt="Pikaa Logo" width="50" height="50"/>
+                        <span class="logo-text">Pikaa</span>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <a href="https://github.com/x0shreyash/Pikaa" class="nav-btn">
+                      <span class="svgContainer">
+                        <img src="assets/github-mark-white.svg" alt="GitHub" height="22">
+                      </span>
+                      <span class="icon-bg"></span>
+                    </a>
+
+                    <a href="https://www.buymeacoffee.com/x0shreyash" class="nav-btn">
+                      <span class="svgContainer">
+                        <img src="assets/bmc-logo.svg" alt="Buy Me a Coffee" height="22">
+                      </span>
+                      <span class="icon-bg"></span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+  <!-- Main Content -->
   <div class="content">
-    <div class="left-info">
-      <h1 class="focus-in-expand-normal">Pikaa</h1>
-      <p class="desc text-focus-in-normal">
-        Effortlessly Transform Your Tweets Into Beautiful Images, Customize And Download With Ease
-      </p>
-    </div>
     <div class="container">
-      <form id="tweetForm" autocomplete="off">
+      <form id="tweetForm">
         <div class="top-inputs">
         <input type="text" id="author" placeholder="Name" maxlength="70" required>
         <input type="text" id="username" placeholder="Username" maxlength="15" required>
@@ -64,28 +100,45 @@
           <span>Avatar</span>
           <input type="file" id="avatarFile" accept="image/*">
         </label>
-        <textarea id="tweet" placeholder="Start Shitposting...." maxlength="790" required></textarea>
+        <textarea id="tweet" placeholder="Start Shitposting" maxlength="1000" required></textarea>
+        <div class="char-counter" id="charCounter">0</div>
       </div>
         <div class="control-panel">
         <fieldset class="bg-picker">
-          <legend>Background</legend>
-          <input type="color" id="bgColor" value="#000000">
-          <input type="file" id="bgImage" accept="image/*">
-          <div id="bgOpacityContainer" style="display: none;">
-            <input type="range" id="bgOpacity" min="0" max="1" step="0.05" value="0.3">
+          
+           <div class="preset-row" id="bgPresets">
+    <button type="button" class="preset-swatch" data-color="#000000" style="background:#000000;"></button>
+    <button type="button" class="preset-swatch" data-color="#8B0000 " style="background:#8B0000;"></button>
+    <button type="button" class="preset-swatch" data-color="#8B008B" style="background:#8B008B;"></button>
+    <button type="button" class="preset-swatch" data-color="#4B0082" style="background:#4B0082;"></button>
+    <button type="button" class="preset-swatch" data-color="#00008B" style="background:#00008B;"></button>
+    <button type="button" class="preset-swatch" data-color="#006400" style="background:#006400;"></button>
+    <button type="button" class="preset-swatch" data-color="#B8860B" style="background:#B8860B;"></button>
+    <button type="button" class="preset-swatch preset-custom" id="openCustomColor"></button>
+  </div>
+          
+          <label for="bgImage" class="picker-label">Background</label>
+          <input type="file" id="bgImage" accept="image/*" title="Upload Background">
+          
+          <div id="bgOpacityContainer" class="bg-opacity-container" style="display: none;">
+            <input type="range" id="bgOpacity" class="bg-opacity" min="0" max="1" step="0.05" value="0.3" title="Set background opacity">
           </div>
         </fieldset>
-        <div class="verified-section" id="verified-toggle">
-          <div class="verified-info">
-            <div>
-              <div class="verified-text">Verified Badge</div>
-              <div class="verified-subtext">Add Blue Checkmark</div>
+        
+        <div class="toggle-section">
+          <div class="toggle" id="verified-toggle">
+            <div class="toggle-info">
+              <div class="toggle-text">Show Checkmark</div>
             </div>
           </div>
-          <div class="toggle-switch" id="toggle-switch">
-            <div class="toggle-knob"></div>
+          
+          <div class="toggle" id="avatar-toggle">
+            <div class="toggle-info">
+              <div class="toggle-text">Show Avatar</div>
+            </div>
           </div>
         </div>
+
       </div>
       </form>
       <div id="tweetCard" class="tweet-card">
@@ -107,18 +160,57 @@
           <span id="cardFooter" class="tweet-date"></span>
         </div>
       </div>
-      <button id="downloadBtn" type="button">
-  <div class="svg-wrapper-1">
-    <div class="svg-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" class="icon">
-        <path d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"/>
-      </svg>
+      <button id="downloadBtn" class="download-btn" type="button">
+        <span>save</span>
+      </button>
     </div>
   </div>
-  <span>SAVE</span>
-</button>
+
+  <!-- Custom color modal -->
+  <div id="customColorModal" class="color-modal">
+    <div class="color-modal-backdrop"></div>
+    <div class="color-modal-content">
+      <div class="color-modal-header">
+        <h2>Custom background</h2>
+        <button type="button" id="closeCustomColor" class="color-modal-close">×</button>
+      </div>
+
+      <div class="color-modal-body">
+        <div class="color-preview-box" id="customColorPreview"></div>
+
+        <div class="color-input-row">
+          <label for="customColorHex">Hex</label>
+          <input
+            type="text"
+            id="customColorHex"
+            maxlength="7"
+            placeholder="#15181C"
+            spellcheck="false"
+          >
+        </div>
+
+        <div class="color-input-row">
+          <label for="customColorRgb">RGB</label>
+          <input
+            type="text"
+            id="customColorRgb"
+            placeholder="21, 24, 28"
+            spellcheck="false"
+          >
+        </div>
+      </div>
+
+      <div class="color-modal-footer">
+        <button type="button" id="cancelCustomColor" class="color-modal-btn secondary">
+          Cancel
+        </button>
+        <button type="button" id="applyCustomColor" class="color-modal-btn primary">
+          Apply
+        </button>
+      </div>
     </div>
   </div>
+  
   <script src="https://unpkg.com/dom-to-image-more@2.8.0/dist/dom-to-image-more.min.js"></script>
   <script src="script.js"></script>
 </body>
