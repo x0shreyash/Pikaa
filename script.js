@@ -21,38 +21,9 @@ const cancelCustomColor = document.getElementById('cancelCustomColor');
 const applyCustomColor = document.getElementById('applyCustomColor');
 const customColorPreview = document.getElementById('customColorPreview');
 const customColorHex = document.getElementById('customColorHex');
-const customColorRgb = document.getElementById('customColorRgb');
+const customColorPicker = document.getElementById('customColorPicker');
 
 // ============ HELPERS ============
-
-function hexToRgbString(hex) {
-  if (!hex) return null;
-  let h = hex.trim().replace('#', '');
-  if (![3, 6].includes(h.length)) return null;
-  if (h.length === 3) {
-    h = h.split('').map(c => c + c).join('');
-  }
-  const num = parseInt(h, 16);
-  if (Number.isNaN(num)) return null;
-  const r = (num >> 16) & 255;
-  const g = (num >> 8) & 255;
-  const b = num & 255;
-  return `${r}, ${g}, ${b}`;
-}
-
-function rgbStringToHex(rgbStr) {
-  if (!rgbStr) return null;
-  const parts = rgbStr.split(',').map(v => parseInt(v.trim(), 10));
-  if (parts.length !== 3 || parts.some(x => Number.isNaN(x) || x < 0 || x > 255)) return null;
-  const [r, g, b] = parts;
-  return (
-    '#' +
-    [r, g, b]
-      .map(x => x.toString(16).padStart(2, '0'))
-      .join('')
-      .toUpperCase()
-  );
-}
 
 function getRandomSeed() {
   return Math.random().toString(36).substring(2, 10);
@@ -104,9 +75,6 @@ function updateCard() {
          <path fill="#1DA1F2" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"/>
        </svg>`
     : '';
-    
-    // Background color/image
-  setBgColor(getCurrentColor());
 }
 
 // ============ MODAL LOGIC ============
@@ -114,8 +82,8 @@ function updateCard() {
 function openColorModal(initialColor) {
   const startColor = initialColor || '#15181c';
   customColorHex.value = startColor;
-  customColorRgb.value = hexToRgbString(startColor) || '';
   customColorPreview.style.background = startColor;
+  customColorPicker.value = startColor;
   customColorModal.classList.add('open');
 }
 
@@ -162,22 +130,18 @@ customColorHex.addEventListener('input', () => {
   let value = customColorHex.value.trim();
   if (!value.startsWith('#')) value = '#' + value;
   if (value.length === 4 || value.length === 7) {
-    const rgb = hexToRgbString(value);
-    if (rgb) {
-      customColorPreview.style.background = value;
-      customColorRgb.value = rgb;
-    }
+    customColorPreview.style.background = value;
+    customColorPicker.value = value;
   }
 });
 
-// Sync RGB → preview + hex
-customColorRgb.addEventListener('input', () => {
-  const hex = rgbStringToHex(customColorRgb.value);
-  if (hex) {
-    customColorHex.value = hex;
-    customColorPreview.style.background = hex;
-  }
+// Sync color picker → hex + preview
+customColorPicker.addEventListener('input', () => {
+  const hex = customColorPicker.value.toUpperCase();
+  customColorHex.value = hex;
+  customColorPreview.style.background = hex;
 });
+
 
 // Apply custom color
 applyCustomColor.addEventListener('click', () => {
@@ -324,3 +288,10 @@ downloadBtn.addEventListener("click", downloadCard);
 
 setAvatarFromDiceBear(getRandomSeed());
 updateCard();
+
+// Set default background to first preset (black)
+const firstPreset = bgPresets?.querySelector('.preset-swatch:first-child');
+if (firstPreset) {
+  firstPreset.classList.add('active');
+  setBgColor(firstPreset.dataset.color);
+}
