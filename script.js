@@ -262,12 +262,13 @@ function downloadCard() {
   document.body.appendChild(wrapper);
 
   setTimeout(() => {
-    domtoimage.toPng(clone, {
+      const SCALE = 3;
+        domtoimage.toPng(clone, {
       cacheBust: true,
-      width: tweetCard.offsetWidth * 3,
-      height: tweetCard.offsetHeight * 3,
+      width: tweetCard.offsetWidth * SCALE,
+      height: tweetCard.offsetHeight * SCALE,
       style: {
-        transform: "scale(3)",
+        transform: `scale(${SCALE})`,
         transformOrigin: "top left",
         width: tweetCard.offsetWidth + "px",
         height: tweetCard.offsetHeight + "px"
@@ -295,3 +296,4 @@ if (firstPreset) {
   firstPreset.classList.add('active');
   setBgColor(firstPreset.dataset.color);
 }
+
