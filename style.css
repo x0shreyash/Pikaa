@@ -946,7 +946,6 @@ input[type="color"], input[type="file"], input[type="range"] {
   }
 
   .tweet-card {
-    margin-top: 18px;
     font-size: 1em;
     max-width: 100%;
   }
@@ -965,6 +964,8 @@ input[type="color"], input[type="file"], input[type="range"] {
   }
 
   .tweet-footer {
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-size: 0.92em;
     margin-top: 10px;
   }
@@ -996,3 +997,4 @@ input[type="color"], input[type="file"], input[type="range"] {
     align-items: center;
   }
 }
+
