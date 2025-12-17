@@ -22,8 +22,8 @@ Tired of cropping screenshots and making crusty text images just to share long t
 - Upload your own profile picture
 - Customize card background and color
 - Real-time preview as you type
-- Fully client-side (your data never leaves your browser)
-- Export as PNG (coming soon)
+- Fully client-side
+- Export as PNG
 
 ## Quick Start
 
