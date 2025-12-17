@@ -5,6 +5,7 @@ const charCounter = document.getElementById('charCounter');
 const tweetInput = document.getElementById('tweet');
 const verifiedToggle = document.getElementById('verified-toggle');
 const avatarToggle = document.getElementById('avatar-toggle');
+const dateToggle = document.getElementById('date-toggle');
 const openCustomColor = document.getElementById('openCustomColor');
 const bgPresets = document.getElementById('bgPresets');
 const bgOpacityInput = document.getElementById("bgOpacity");
@@ -59,14 +60,19 @@ function updateCard() {
   document.getElementById('cardUsername').textContent = '@' + document.getElementById('username').value.replace(/^@/, '');
   document.getElementById('cardContent').textContent = tweetInput.value;
 
-  // Date
-  const now = new Date();
-  const time = now.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-  const month = now.toLocaleString('en-US', { month: 'short' });
-  const day = now.getDate();
-  const year = now.getFullYear();
-  const dateStr = `${time} · ${month} ${day}, ${year}`;
-  document.getElementById('cardFooter').textContent = dateStr;
+  // Date with toggle
+  const hideDate = dateToggle.classList.contains('active');
+  if (!hideDate) {
+    const now = new Date();
+    const time = now.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    const month = now.toLocaleString('en-US', { month: 'short' });
+    const day = now.getDate();
+    const year = now.getFullYear();
+    const dateStr = `${time} · ${month} ${day}, ${year}`;
+    document.getElementById('cardFooter').textContent = dateStr;
+  } else {
+    document.getElementById('cardFooter').textContent = '';
+  }
 
   // Verified badge
   const verified = verifiedToggle.classList.contains('active');
@@ -167,6 +173,14 @@ avatarToggle.addEventListener('click', (e) => {
   e.preventDefault();
   avatarToggle.classList.toggle('active');
   tweetCard.classList.toggle('no-avatar');
+});
+
+// ============ DATE TOGGLE ============
+
+dateToggle.addEventListener('click', (e) => {
+  e.preventDefault();
+  dateToggle.classList.toggle('active');
+  updateCard();
 });
 
 // ============ LIVE PREVIEW ============
@@ -285,6 +299,46 @@ function downloadCard() {
 
 downloadBtn.addEventListener("click", downloadCard);
 
+// ============ FONT PRESETS ============
+
+const fontPresets = document.getElementById('fontPresets');
+const cardContent = document.getElementById('cardContent');
+
+function clearFontClasses() {
+  cardContent.classList.remove(
+    'font-inter',
+    'font-work-sans',
+    'font-space-grotesk',
+    'font-plus-jakarta',
+    'font-dm-sans',
+    'font-dm-serif',
+    'font-roboto-mono',
+    'font-karla'
+  );
+}
+
+if (fontPresets && cardContent) {
+  fontPresets.addEventListener('click', (e) => {
+    const btn = e.target.closest('.preset-swatch');
+    if (!btn) return;
+
+    const style = btn.dataset.style;
+    if (!style) return;
+
+    // active state for buttons
+    fontPresets.querySelectorAll('.preset-swatch').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // apply font class to tweet content
+    clearFontClasses();
+    cardContent.classList.add(`font-${style}`);
+  });
+}
+
+// default font on load
+clearFontClasses();
+cardContent.classList.add('font-inter');
+
 // ============ INIT ============
 
 setAvatarFromDiceBear(getRandomSeed());
@@ -296,4 +350,3 @@ if (firstPreset) {
   firstPreset.classList.add('active');
   setBgColor(firstPreset.dataset.color);
 }
-
