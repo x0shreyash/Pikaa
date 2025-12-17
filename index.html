@@ -116,16 +116,27 @@
     <button type="button" class="preset-swatch" data-color="#B8860B" style="background:#B8860B;"></button>
     <button type="button" class="preset-swatch preset-custom" id="openCustomColor"></button>
   </div>
+  
+  <div class="preset-row" id="fontPresets">
+      <button type="button" class="preset-swatch active" data-style="inter" title="Inter" style="font-family: 'Inter', sans-serif;">A</button>
+      <button type="button" class="preset-swatch" data-style="work-sans" title="Work Sans" style="font-family: 'Work Sans', sans-serif;">A</button>
+      <button type="button" class="preset-swatch" data-style="space-grotesk" title="Space Grotesk" style="font-family: 'Space Grotesk', sans-serif;">A</button>
+      <button type="button" class="preset-swatch" data-style="plus-jakarta" title="Plus Jakarta Sans" style="font-family: 'Plus Jakarta Sans', sans-serif;">A</button>
+      <button type="button" class="preset-swatch" data-style="dm-sans" title="DM Sans" style="font-family: 'DM Sans', sans-serif;">A</button>
+      <button type="button" class="preset-swatch" data-style="dm-serif" title="DM Serif Display" style="font-family: 'DM Serif Display', serif;">A</button>
+      <button type="button" class="preset-swatch" data-style="roboto-mono" title="Roboto Mono" style="font-family: 'Roboto Mono', monospace;">A</button>
+      <button type="button" class="preset-swatch" data-style="karla" title="Karla" style="font-family: 'Karla', sans-serif;">A</button>
+  </div>
+  
+  <label for="bgImage" class="picker-label">Background</label>
+  <input type="file" id="bgImage" accept="image/*" title="Upload Background">
+  
+  <div id="bgOpacityContainer" class="bg-opacity-container" style="display: none;">
+    <input type="range" id="bgOpacity" class="bg-opacity" min="0" max="1" step="0.05" value="0.3" title="Set background opacity">
+  </div>
+</fieldset>
           
-          <label for="bgImage" class="picker-label">Background</label>
-          <input type="file" id="bgImage" accept="image/*" title="Upload Background">
-          
-          <div id="bgOpacityContainer" class="bg-opacity-container" style="display: none;">
-            <input type="range" id="bgOpacity" class="bg-opacity" min="0" max="1" step="0.05" value="0.3" title="Set background opacity">
-          </div>
-        </fieldset>
-        
-        <div class="toggle-section">
+<div class="toggle-section">
           <div class="toggle" id="verified-toggle">
             <div class="toggle-info">
               <div class="toggle-text">Show Checkmark</div>
@@ -134,11 +145,17 @@
           
           <div class="toggle" id="avatar-toggle">
             <div class="toggle-info">
-              <div class="toggle-text">Show Avatar</div>
+              <div class="toggle-text">Hide Avatar</div>
+            </div>
+          </div>
+          
+          <div class="toggle" id="date-toggle">
+            <div class="toggle-info">
+              <div class="toggle-text">Hide Date</div>
             </div>
           </div>
         </div>
-
+        
       </div>
       </form>
       <div id="tweetCard" class="tweet-card">
